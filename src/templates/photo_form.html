@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="addOrUpdate">
+    <div class="forms">
+        <h2>{% if photo and id!=photo.id%}Update Photo{%else%}Add New Photo{% endif %}</h2>
+        <form action="{% if photo %}{{ url_for('photo_bp.update', id=photo.id) }}{% else %}{{ url_for('form_bp.add') }}{% endif %}" method="POST">
+            <input type="text" name="title" value="{{ photo.title if photo else '' }}" placeholder="Título">
+            <input type="text" name="description" value="{{ photo.description if photo else '' }}" placeholder="Descripción">
+            <input type="url" name="image_url" value="{{ photo.image_url if photo else '' }}" placeholder="URL de la imagen">
+            <button class="button" type="submit">{% if photo %}Actualizar{% else %}Crear{% endif %}</button>
+        </form>
+        <a href="{{ url_for('form_bp.index') }}">Back to Gallery</a>
+    </div>
+</div>
+    {% endblock %}
